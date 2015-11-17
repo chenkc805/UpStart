@@ -46,51 +46,56 @@ public class BudgetTest {
 
     @Test
     public void testWorkingBudget0() {
-        System.out.println("Working Budget 0: " + Arrays.toString(workingBudget0.budgetingAlgorithm()));  
-        System.out.println("-------------------------------"); 
+        String result = Arrays.toString(workingBudget0.budgetingAlgorithm());  
+        assertEquals("[100, 200, 100, 100, 400]", result); 
     }
 
     @Test
     public void testWorkingBudget1() {
-        System.out.println("Working Budget 1: " + Arrays.toString(workingBudget1.budgetingAlgorithm()));  
-        System.out.println("-------------------------------"); 
+        String result = Arrays.toString(workingBudget1.budgetingAlgorithm());  
+        assertEquals("[33, 33, 233, 83, 283, 83, 583, 383, 683, 600]", result); 
     }
 
     @Test
     public void testWorkingBudget2() {
-        System.out.println("Working Budget 2: " + Arrays.toString(workingBudget2.budgetingAlgorithm()));   
-        System.out.println("-------------------------------");
+        String result = Arrays.toString(workingBudget2.budgetingAlgorithm());  
+        assertEquals("[100, 100, 100, 250, 150, 150, 650]", result); 
     }
 
     @Test
     public void testWorkingBudget3() {
-        System.out.println("Working Budget 3: " + Arrays.toString(workingBudget3.budgetingAlgorithm()));   
-        System.out.println("-------------------------------");
+        String result = Arrays.toString(workingBudget3.budgetingAlgorithm());  
+        assertEquals("[100]", result); 
     }
 
     @Test
     public void testNoExpenses() {
-        System.out.println("No Expenses Budget : " + Arrays.toString(noExpensesBudget.budgetingAlgorithm()));   
-        System.out.println("-------------------------------");
+        String result = Arrays.toString(noExpensesBudget.budgetingAlgorithm());  
+        assertEquals("[100, 100, 100, 300, 300, 300, 300]", result); 
     }
 
     @Test
     public void testInvalidBudget1() {
-        System.out.println("Invalid Budget 1: " + Arrays.toString(invalidBudget1.budgetingAlgorithm()));   
-        System.out.println("-------------------------------");
+        System.out.println("Unable to make financial goal in year 7.");
+        String result = Arrays.toString(invalidBudget1.budgetingAlgorithm());  
+        assertEquals("null", result); 
+        System.out.println("-----------------------");
     }
 
     @Test
     public void testDifferingLengths() {
-        System.out.println("Differing Lengths: " + Arrays.toString(differingLengths.budgetingAlgorithm()));   
-        System.out.println("-------------------------------");
+        System.out.println("Length of years in INCOME and EXPENSES not equal.");
+        String result = Arrays.toString(differingLengths.budgetingAlgorithm());  
+        assertEquals("null", result);
+        System.out.println("-----------------------");
     }
 
-
     @Test
-    public void noLength() {
-        System.out.println("No Length: " + Arrays.toString(noLength.budgetingAlgorithm()));   
-        System.out.println("-------------------------------");
+    public void noLength() {  
+        System.out.println("No values given to INCOME.");
+        String result = Arrays.toString(noLength.budgetingAlgorithm());  
+        assertEquals("null", result); 
+        System.out.println("-----------------------");
     }
 
     public static void main(String[] args) {

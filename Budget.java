@@ -109,7 +109,7 @@ public class Budget {
 
         //Check if the two inputs are of length > 0 and same length.
         if (N == 0) {
-            System.out.println("No values given to income.");
+            System.out.println("No values given to INCOME.");
             return null;
         }
         if (N != expenses.length) {
@@ -131,7 +131,7 @@ public class Budget {
         // Basic check if the user cannot make his/her financial goals 
         // without discretionary spending accounted for.
             if (netAssets[i] < 0) {
-                System.out.println("Unable to make financial goal in year " + (i + 1));
+                System.out.println("Unable to make financial goal in year " + (i + 1) + ".");
                 return null;
             }
         }
