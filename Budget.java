@@ -47,10 +47,14 @@ public class Budget {
 	public int finalAmount;
 
 	/** 
-	 * The final amount after all income and financial goals have been accounted for. 
-	 * finalAmount = sum(income) - sum(expenses);
+	 * A LinkedList of the points where discretionary spending changes in the discretionary array.
 	 */
 	private LinkedList<Integer> transitions;
+
+	/** 
+	 * The yearly spending with discretionary spending and financial goals accounted for.
+	 */
+	private int[] finalSpending;
 
 	/**  
 	  *	Constructor for the Budget class. 
@@ -137,7 +141,11 @@ public class Budget {
 			}
 		}
 
-		return discretionary;
+		finalSpending = new int[N];
+		for (int i = 0; i < N; i++) {
+			finalSpending[i] = discretionary[i] + expenses [i];
+		}
+		return finalSpending;
 	}
 
 	/**  

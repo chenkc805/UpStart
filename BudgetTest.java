@@ -12,8 +12,8 @@ import org.junit.Test;
 
 public class BudgetTest {
 
-    private int[] workingIncome0 = new int[] {100, 600, 100, 100, 100, 1000};
-    private int[] workingExpenses0 = new int[] {0, 100, 100, 0, 0, 300};    
+    private int[] workingIncome0 = new int[] {10000, 600, 100, 100, 100, 1000};
+    private int[] workingExpenses0 = new int[] {0, 100, 100, 0, 0, 10000};    
     private Budget workingBudget0 = new Budget(workingIncome0, workingExpenses0);
 
     private int[] workingIncome1 = new int[] {100, 100, 100, 300, 300, 300, 300, 400, 500, 600};
@@ -39,6 +39,10 @@ public class BudgetTest {
     private int[] invalidIncome2 = new int[] {100, 100, 100, 300, 300, 300, 300};
     private int[] invalidExpenses2 = new int[] {0, 0, 0, 0, 0, 0};    
     private Budget differingLengths = new Budget(invalidIncome2, invalidExpenses2);
+
+    private int[] noLengthIncome = new int[] {};
+    private int[] noLengthExpenses = new int[] {};    
+    private Budget noLength = new Budget(noLengthIncome, noLengthExpenses);
 
     @Test
     public void testWorkingBudget0() {
@@ -82,6 +86,12 @@ public class BudgetTest {
         System.out.println("-------------------------------");
     }
 
+
+    @Test
+    public void noLength() {
+        System.out.println("No Length: " + Arrays.toString(noLength.budgetingAlgorithm()));   
+        System.out.println("-------------------------------");
+    }
 
     public static void main(String[] args) {
         jh61b.junit.textui.runClasses(BudgetTest.class);
