@@ -16,8 +16,8 @@ public class BudgetTest {
     private int[] workingExpenses0 = new int[] {0, 100, 100, 0, 0, 300};    
     private Budget workingBudget0 = new Budget(workingIncome0, workingExpenses0);
 
-    private int[] workingIncome1 = new int[] {100, 100, 100, 300, 300, 300, 300};
-    private int[] workingExpenses1 = new int[] {0, 0, 200, 0, 200, 0, 600};    
+    private int[] workingIncome1 = new int[] {100, 100, 100, 300, 300, 300, 300, 400, 500, 600};
+    private int[] workingExpenses1 = new int[] {0, 0, 200, 0, 200, 0, 500, 300, 600, 10};    
     private Budget workingBudget1 = new Budget(workingIncome1, workingExpenses1);
 
     private int[] workingIncome2 = new int[] {100, 100, 100, 300, 300, 300, 300};

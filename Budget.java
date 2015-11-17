@@ -7,6 +7,7 @@
   */
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Budget {
 
@@ -44,6 +45,12 @@ public class Budget {
 	 * finalAmount = sum(income) - sum(expenses);
 	 */
 	public int finalAmount;
+
+	/** 
+	 * The final amount after all income and financial goals have been accounted for. 
+	 * finalAmount = sum(income) - sum(expenses);
+	 */
+	private LinkedList<Integer> transitions;
 
 	/**  
 	  *	Constructor for the Budget class. 
@@ -90,20 +97,22 @@ public class Budget {
 		//Create a new array, NETASSETS, to store the netAssets spending values
 		// Fill the savings array
 		netAssets = new int[N];
-		netAssets[0] = income[0] - expenses[0];
 		discretionary = new int[N];
-		for (int i = 1; i < N; i++) {
-			netAssets[i] = netAssets[i - 1] + income[i] - expenses[i];
+		for (int i = 0; i < N; i++) {
+			if (i == 0) {
+				netAssets[0] = income[0] - expenses[0];
+			} else {
+				netAssets[i] = netAssets[i - 1] + income[i] - expenses[i];
+			}
 
 		// Basic check if the user cannot make his/her financial goals 
 		// without discretionary spending accounted for.
-			if (netAssets[i] <= 0) {
-				System.out.println("Unable to make financial goal in year " + i);
+			if (netAssets[i] < 0) {
+				System.out.println("Unable to make financial goal in year " + (i + 1));
 				return null;
 			}
 		}
 
-		System.out.println(Arrays.toString(netAssets));
 
 		// Make a first round by blindly and evenly dividing out the remaining discretionary
 		// amount from the last year among all the years.
@@ -121,6 +130,8 @@ public class Budget {
 			System.arraycopy(discretionary, 0, checkMatch, 0, netAssets.length);
 			recalculateSpending();
 			recalculateDiscretionary();
+			transitions = new LinkedList<Integer>();
+			smoothDiscretionary(transitions, true);
 			if (Arrays.equals(checkMatch, discretionary)) {
 				break;
 			}
@@ -159,11 +170,8 @@ public class Budget {
 				lastExpense = i + 1;
 				leftOver = finalAmount - netAssets[i];
 				divideToDiscretionary(leftOver, lastExpense, N - 1);
-				System.out.println(i);
-				System.out.println(Arrays.toString(discretionary));
 			}
 		}
-		System.out.println("End for loop");
 	}
 
 	/**  
@@ -174,8 +182,12 @@ public class Budget {
 	  */
 	private int totalDiscretionarySoFar(int end) {
 		int result = 0;
-		for (int i = 0; i <= end; i++) {
-			result += discretionary[i];
+		if (end == -1) {
+
+		} else {
+			for (int i = 0; i <= end; i++) {
+				result += discretionary[i];
+			}
 		}
 		return result;
 	}
@@ -218,6 +230,66 @@ public class Budget {
 				}
 				start = i + 1;
 			}
+		}
+	}
+
+	/**  
+	  *	A method that searches through the discretionary array and
+	  * adds the indices where discretionary spending changes. 
+	  * @param TRANSITIONS: A LinkedList to hold the indices for 
+	  *    					where discretionary spending changes. 
+	  */
+	private void findTransitions(LinkedList<Integer> transitions) {
+		transitions.add(0);
+		for (int i = 1; i < N; i++) {
+			if (discretionary[i] != discretionary[i - 1]) {
+				transitions.add(i);
+			}
+		}
+	}
+
+	/**  
+	  *	A method that smooths out discretionary spending based off of the observation that 
+	  * if for a couple of years the user has a lot of discretionary spending and then the following
+	  * couple of years have less discretionary spending, then the discretionary spending from the 
+	  * earlier years can be allocated to the future years to maximize happiness.
+	  * @param: TRANSITIONS: A LinkedList to hold the indices for 
+	  *    					where discretionary spending changes. 
+	  * @param: FIRSTCALL: A boolean that indicates whether this call is the first call or another call
+	  * 				   from within this function. 
+	  */
+	private void smoothDiscretionary(LinkedList<Integer> transitions, boolean firstCall) {
+		if (transitions.size() == 0 && firstCall == false) {
+			return;
+		}
+		if (transitions.size() == 0 && firstCall == true) {
+			this.findTransitions(transitions);
+		}
+		int firstTransition;
+		int secondTransition;
+		int thirdTransition;
+		if (transitions.size() == 1) {
+			return;
+		}
+		if (transitions.size() == 2) {
+			firstTransition = transitions.get(0);
+			secondTransition = transitions.get(1);
+			if (discretionary[firstTransition] > discretionary[secondTransition]) {
+				divideToDiscretionary(this.totalDiscretionarySoFar(N - 1), firstTransition, N - 1);
+			}
+		} else {
+			while (transitions.size() > 2) {
+				firstTransition = transitions.get(0);
+				secondTransition = transitions.get(1);
+				thirdTransition = transitions.get(2);
+				if (discretionary[firstTransition] > discretionary[secondTransition]) {
+					int amount = this.totalDiscretionarySoFar(thirdTransition) - this.totalDiscretionarySoFar(firstTransition) - discretionary[thirdTransition] + discretionary[firstTransition];
+					divideToDiscretionary(amount, firstTransition, thirdTransition - 1);
+				}
+				transitions.pop();
+			}
+			smoothDiscretionary(transitions, false);
+			return;
 		}
 	}
 }
