@@ -119,8 +119,8 @@ public class Budget {
 		// at which point the loop terminates and the final discretionary spending plan is returned.
 		while (true) {
 			System.arraycopy(discretionary, 0, checkMatch, 0, netAssets.length);
-			recalculateDiscretionary();
 			recalculateSpending();
+			recalculateDiscretionary();
 			if (Arrays.equals(checkMatch, discretionary)) {
 				break;
 			}
@@ -151,20 +151,19 @@ public class Budget {
 	  *	A method that recalculates discretionary spending if a certain year's discretionary spending is more than the year's income.
 	  */
 	private void recalculateDiscretionary() {
+		int lastExpense = 0;
 		int leftOver = finalAmount;
 		for (int i = 0; i < N; i++) {
-			if (discretionary[i] > netAssets[i]) {
-				discretionary[i] = netAssets[i];
-				leftOver -= discretionary[i];
-				divideToDiscretionary(leftOver, i + 1, N - 1);
-				// for (int j = i; j < N; j++) {
-				// 	netAssets[j] = netAssets[j] - discretionary[i];
-				// }
-				System.out.println(Arrays.toString(netAssets));
-			} else {
-				leftOver -= discretionary[i];
+			if (this.totalDiscretionarySoFar(i) > netAssets[i]) {
+				divideToDiscretionary(netAssets[i]-this.totalDiscretionarySoFar(lastExpense - 1), lastExpense, i);
+				lastExpense = i + 1;
+				leftOver = finalAmount - netAssets[i];
+				divideToDiscretionary(leftOver, lastExpense, N - 1);
+				System.out.println(i);
+				System.out.println(Arrays.toString(discretionary));
 			}
 		}
+		System.out.println("End for loop");
 	}
 
 	/**  
