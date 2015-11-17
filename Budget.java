@@ -1,5 +1,24 @@
 /**
-  * Methods that allow a user to determine how to best spend their money
+  * //////////////
+  * //			//
+  * //  Budget  // 
+  * //			//
+  * //////////////
+  * 
+  * Description: A class that allows a user to determine how to best spend their money
+  * Summary of how this code functions:
+  *  1) Check if financial goals can be met with no discretionary spending.
+  *  2) Begin allocating income to discretionary spending without going over the user's net assets 
+  *  3) Reallocate income to discretionary spending to make sure that financial goals are still being met 
+  *     with the discretionary budget set in step 2.
+  *  4) Smooth out discretionary spending based off of the observation that, say, 
+  *		for a couple of years the user has a lot of discretionary spending and then the following
+  * 	couple of years the user has less discretionary spending, then the discretionary spending from the 
+  * 	earlier years can be allocated to the future years to maximize happiness without compromising spending goals.
+  *  5) Iterate through step 2-4 until the array cannot be changed any futher. The resulting array is the optimized 
+  * 	discretionary spending array.
+  *  6) For each year, add the discretionary spending and expenses values together to get the final 
+  *     array of spending projects for each year.  
   *  
   * @author 	Kevin L. Chen
   * @date 		11/16/2015
