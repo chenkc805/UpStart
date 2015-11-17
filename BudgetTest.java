@@ -12,8 +12,8 @@ import org.junit.Test;
 
 public class BudgetTest {
 
-    private int[] workingIncome0 = new int[] {10000, 600, 100, 100, 100, 1000};
-    private int[] workingExpenses0 = new int[] {0, 100, 100, 0, 0, 10000};    
+    private int[] workingIncome0 = new int[] {600, 100, 100, 100, 0};
+    private int[] workingExpenses0 = new int[] {0, 100, 0, 0, 300};    
     private Budget workingBudget0 = new Budget(workingIncome0, workingExpenses0);
 
     private int[] workingIncome1 = new int[] {100, 100, 100, 300, 300, 300, 300, 400, 500, 600};

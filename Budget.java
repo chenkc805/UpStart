@@ -136,7 +136,6 @@ public class Budget {
 			}
 		}
 
-
 		// Make a first round by blindly and evenly dividing out the remaining discretionary
 		// amount from the last year among all the years.
 		finalAmount = netAssets[N - 1];
@@ -160,9 +159,11 @@ public class Budget {
 			}
 		}
 
+		// Add the financial goals and discretionary spending together 
+		// to get the final spending budget for all years.
 		finalSpending = new int[N];
 		for (int i = 0; i < N; i++) {
-			finalSpending[i] = discretionary[i] + expenses [i];
+			finalSpending[i] = discretionary[i] + expenses[i];
 		}
 		return finalSpending;
 	}
