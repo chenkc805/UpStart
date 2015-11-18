@@ -143,7 +143,7 @@ public class Budget {
         int[] checkMatch = new int[N];
         System.arraycopy(discretionary, 0, checkMatch, 0, netAssets.length);
 
-        // Recaculate the discretionary spending based off of two constraints:
+        // Recalculate the discretionary spending based off of two constraints:
         //      1) You cannot spend more than you make.
         //      2) You have to meet all your financial goals with discretionary spending accounted for
         // This part will keep iterating through until discretionary spending cannot be further optimized,
@@ -211,7 +211,7 @@ public class Budget {
     private int totalDiscretionarySoFar(int end) {
         int result = 0;
         if (end == -1) {
-
+            return 0;
         } else {
             for (int i = 0; i <= end; i++) {
                 result += discretionary[i];
