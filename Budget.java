@@ -210,9 +210,7 @@ public class Budget {
       */
     private int totalDiscretionarySoFar(int end) {
         int result = 0;
-        if (end == -1) {
-            return 0;
-        } else {
+        if (end != -1) {
             for (int i = 0; i <= end; i++) {
                 result += discretionary[i];
             }
