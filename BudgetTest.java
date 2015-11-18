@@ -44,6 +44,10 @@ public class BudgetTest {
     private int[] noLengthExpenses = new int[] {};    
     private Budget noLength = new Budget(noLengthIncome, noLengthExpenses);
 
+    private int[] negativeIncome = new int[] {100, 100, -1, 300, 300, 300, 300, 400, 500, 600};
+    private int[] negativeExpenses = new int[] {0, 0, 200, 0, 200, 0, 500, 300, 600, 10};    
+    private Budget negativeArray = new Budget(negativeIncome, negativeExpenses);
+
     @Test
     public void testWorkingBudget0() {
         String result = Arrays.toString(workingBudget0.budgetingAlgorithm());  
@@ -94,6 +98,14 @@ public class BudgetTest {
     public void noLength() {  
         System.out.println("No values given to INCOME.");
         String result = Arrays.toString(noLength.budgetingAlgorithm());  
+        assertEquals("null", result); 
+        System.out.println("-----------------------");
+    }
+
+    @Test
+    public void negativeArray() {  
+        System.out.println("Income or financial goal projections cannot contain negative values.");
+        String result = Arrays.toString(negativeArray.budgetingAlgorithm());  
         assertEquals("null", result); 
         System.out.println("-----------------------");
     }

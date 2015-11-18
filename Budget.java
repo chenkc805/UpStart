@@ -122,6 +122,10 @@ public class Budget {
         netAssets = new int[N];
         discretionary = new int[N];
         for (int i = 0; i < N; i++) {
+            if (income[i] < 0 || expenses [i] < 0) {
+                System.out.println("Income or financial goal projections cannot contain negative values.");
+                return null;
+            }
             if (i == 0) {
                 netAssets[0] = income[0] - expenses[0];
             } else {
